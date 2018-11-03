@@ -11,6 +11,9 @@ const db = new Sequelize('example', 'postgres', 'shivam', {
 const todos = db.define('todo', {
     task_person: {
         type: Sequelize.STRING,
+        validate: {
+            is: ["^[a-z]+$",'i']
+        },
         get() {
             const task_title = this.getDataValue('task_title');
             return this.getDataValue('task_person') + '(' + task_title + ')';
@@ -53,21 +56,25 @@ setterMethods: {
 }
     }
 )
-
-person.create({
-    name: 'shivam',
-    title: 'manager'
-}).then( person => {console.log('name')})
+// todos.findAll({
+//     where : {
+//
+//     }
+// })
+// person.create({
+//     name: 'ragg',
+//     title: 'advo'
+// }).then( person => {console.log('name')})
 
 // force: true will drop the table if it already exists
 // todos.sync({force: true}).then(() => {
 //     // Table created
 //     return
-        todos.create({        task_person: 'shivam',
-            task_title: 'breakfast'
-    }).then(todos => {
-        console.log(todos.get('task_person'));
-        });
+//         todos.create({        task_person: 'ragg',
+//             task_title: '420'
+//     }).then(todos => {
+//         console.log(todos.get('task_person'));
+//         });
 // });
 // const student = db.define('example_table',{
 //     name: {
@@ -93,9 +100,12 @@ person.create({
 // }).then((data) => {
 //     console.log(data[0].dataValues.id)
 // }).catch(err => console.log(err))
-
+db.sync({alter: true}).then(()=>{console.log('connection est')}).catch((err)=>{console.log(err)})
 db.authenticate().then(() => {
     console.log("Success!");
 }).catch((err) => {
     console.log(err);
 });
+module.exports = {
+    todos, person
+}

@@ -4,9 +4,11 @@
   "description": "",
   "main": "db.js",
   "dependencies": {
+    "bluebird": "^3.5.2",
     "express": "^4.16.4",
     "pg": "^7.6.0",
     "pg-hstore": "^2.3.2",
+    "router": "^1.3.3",
     "sequelize": "^4.41.0"
   },
   "devDependencies": {},
